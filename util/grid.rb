@@ -19,10 +19,16 @@ class Grid
   end
 
   def dup
-    Grid.new(width, height, chars.dup)
+    Grid.new(width, height, @chars.dup)
   end
 
-  def index(point)
+  def index(char)
+    index = @chars.index(char)
+    y = index / width
+    Point.new(index - (y * width), y)
+  end
+
+  def [](point)
     x, y = point.x, point.y
     if x < 0 || y < 0
       raise "Negative index"
@@ -30,8 +36,28 @@ class Grid
     @chars[y * width + x] || (raise "Invalid index")
   end
 
-  def [](point)
-    index(point)
+  def []=(point, char)
+    x, y = point.x, point.y
+    @chars[y * width + x] = char
+  end
+
+  def has?(point)
+    point.x >= 0 && point.x < width && point.y >= 0 && point.y < height
+  end
+
+  def count(char)
+    @chars.count(char)
+  end
+
+  def to_s
+    s = ""
+    self.height.times do |y|
+      self.width.times do |x|
+        s += self[Point.new(x, y)]
+      end
+      s += "\n"
+    end
+    s
   end
 end
 
@@ -42,3 +68,4 @@ def Grid(input)
   Grid.new(width, height, chars.join)
 end
 
+12/10

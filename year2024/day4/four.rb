@@ -4,7 +4,7 @@ def scan_line(grid, point, direction, size)
   chars = ""
   result = 0
   size.times do |i|
-    chars += grid.index(point)
+    chars += grid[point]
     result += 1 if (chars[-4..] == "XMAS" || chars[-4..] == "SAMX")
     point += direction
   end

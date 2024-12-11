@@ -10,4 +10,8 @@ class Point
   def +(other)
     Point.new(x + other.x, y + other.y)
   end
+
+  def ==(other)
+    x == other.x && y == other.y
+  end
 end
